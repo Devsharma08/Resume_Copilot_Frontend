@@ -10,9 +10,9 @@ export const api = axios.create({
 // Helper functions for our AI & CRUD endpoints
 export const ApiService = {
   // Upload & Process Resume Version
-  uploadResumeVersion: async (resumeId: number, userId: number, file: File) => {
+  uploadResumeVersion: async (resumeId: number, file: File) => {
     const formData = new FormData();
-    formData.append("user_id", userId.toString());
+    console.log("file data from frontend: ",file);
     formData.append("file", file);
 
     const response = await api.post(`/resumeversions/upload/${resumeId}`, formData, {
