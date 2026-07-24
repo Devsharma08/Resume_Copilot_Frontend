@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { 
   FileText, 
@@ -7,16 +8,66 @@ import {
   Mail, 
   TrendingUp, 
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Loader2
 } from "lucide-react";
-
+import { api, ApiService } from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
 export default function DashboardPage() {
-  // We can fetch these stats using TanStack Query later. 
-  // For now, we will render a sleek, professional placeholder state.
+
+    const { data, isLoading: loading } = useQuery({
+    queryKey: ['dashboardData'],
+    queryFn: async () => {
+      // Fetch all resume versions
+      const response = await api.get("/resumeversions/resume/1");
+      const versionList = response.data;
+      
+      let totalScore = 0;
+      let count = 0;
+      
+      // Fetch analyses for each version
+      for (const version of versionList) {
+        try {
+          const versionDetail = await api.get(`/resumeversions/${version.id}`);
+          if (versionDetail.data.analysis) {
+            totalScore += versionDetail.data.analysis.overall_score;
+            count++;
+          }
+        } catch (e) {
+          console.error("Failed to fetch score for version", version.id);
+        }
+      }
+      
+      return {
+        resumes: versionList,
+        avgScore: count > 0 ? Math.round(totalScore / count) : 0
+      };
+    }
+  });
+
+  const resumes = data?.resumes || [];
+  const avgScore = data?.avgScore || 0;
+
+
   const stats = [
-    { name: "Total Resumes", value: "3", icon: FileText, color: "text-blue-600 bg-blue-50 dark:bg-blue-950/40" },
-    { name: "Average ATS Score", value: "82%", icon: TrendingUp, color: "text-green-600 bg-green-50 dark:bg-green-950/40" },
-    { name: "Matched Jobs", value: "5", icon: Briefcase, color: "text-purple-600 bg-purple-50 dark:bg-purple-950/40" },
+    { 
+      name: "Total Resumes", 
+      value: loading ? "..." : resumes.length.toString(), 
+      icon: FileText, 
+      color: "text-blue-600 bg-blue-50 dark:bg-blue-950/40" 
+    },
+    { 
+      name: "Average ATS Score", 
+      value: loading ? "..." : avgScore > 0 ? `${avgScore}%` : "N/A", 
+      icon: TrendingUp, 
+      color: "text-green-600 bg-green-50 dark:bg-green-950/40" 
+    },
+    { 
+      name: "Matched Jobs", 
+      value: "5", // Static until we list multiple jobs
+      icon: Briefcase, 
+      color: "text-purple-600 bg-purple-50 dark:bg-purple-950/40" 
+    },
   ];
 
   const quickActions = [
@@ -74,8 +125,12 @@ export default function DashboardPage() {
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 font-medium">
                   {stat.name}
                 </p>
-                <h3 className="text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
-                  {stat.value}
+                <h3 className="text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight flex items-center gap-2">
+                  {loading && stat.value === "..." ? (
+                    <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+                  ) : (
+                    stat.value
+                  )}
                 </h3>
               </div>
               <div className={`p-4 rounded-xl ${stat.color}`}>

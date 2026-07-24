@@ -116,7 +116,7 @@ export default function CoverLettersPage() {
                 <select
                   value={selectedVersionId}
                   onChange={(e) => setSelectedVersionId(e.target.value)}
-                  className="w-full bg-zinc-50 dark:bg-zinc-850 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500"
                 >
                   {resumes.map((res) => (
                     <option key={res.id} value={res.id}>
@@ -129,13 +129,13 @@ export default function CoverLettersPage() {
 
             {/* Tone Selector */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider">
+              <label className="block text-xs font-bold text-zinc-400  uppercase tracking-wider">
                 Requested Tone
               </label>
               <select
                 value={tone}
                 onChange={(e) => setTone(e.target.value)}
-                className="w-full bg-zinc-50 dark:bg-zinc-850 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500"
+                className="w-full dark:bg-zinc-800 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500"
               >
                 <option value="Professional">Professional & Corporate</option>
                 <option value="Conversational">Warm & Conversational</option>
@@ -153,7 +153,7 @@ export default function CoverLettersPage() {
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste the target SDE job posting text here..."
-                className="w-full bg-zinc-50 dark:bg-zinc-850 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500 leading-relaxed resize-none"
+                className="w-full dark:bg-zinc-800 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500 leading-relaxed resize-none"
               />
             </div>
 

@@ -108,7 +108,7 @@ export default function JobMatcherPage() {
                 <select
                   value={selectedVersionId}
                   onChange={(e) => setSelectedVersionId(e.target.value)}
-                  className="w-full bg-zinc-50 dark:bg-zinc-850 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500"
                 >
                   {resumes.map((res) => (
                     <option key={res.id} value={res.id}>
@@ -129,7 +129,7 @@ export default function JobMatcherPage() {
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste the SDE job posting text here..."
-                className="w-full bg-zinc-50 dark:bg-zinc-850 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500 leading-relaxed resize-none"
+                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-250 dark:border-zinc-800 p-3 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 outline-none focus:border-blue-500 leading-relaxed resize-none"
               />
             </div>
 
